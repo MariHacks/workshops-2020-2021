@@ -13,4 +13,4 @@ set AIRTABLE_TOKEN=<TOKEN>
 python main.py
 ```
 
-Contact the Programming Club for the <TOKEN> for the AIRTABLE_TOKEN environment variable.
+Contact the Programming Club for the `<TOKEN>` for the `AIRTABLE_TOKEN` environment variable.
