@@ -10,5 +10,5 @@ headers = {"Authorization": f"Bearer {airtable_token}"}
 response = requests.get("https://api.airtable.com/v0/appywQzwZYTT5lFQO/Table%201", headers=headers)
 
 for row in response.json()["records"]:
-	if row["fields"]["activity"] == activity and emotion==row["fields"]["mentalState"]:
+	if row["fields"]["activity"] == activity and row["fields"]["mentalState"] == emotion:
 		print(row["fields"]["spotifyLink"])
