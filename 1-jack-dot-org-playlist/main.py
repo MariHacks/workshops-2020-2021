@@ -1,14 +1,30 @@
+# import modules 
 import requests
-import os
+import random
+import webbrowser
 
-airtable_token = os.getenv("AIRTABLE_TOKEN")
+# get user input (mental state and activity)
+emotion = input("Mental state? ").lower().strip()
+activity = input("Activity? ").lower().strip()
 
-emotion = input("What is your emotion? ")
-activity = input("What is your activity? ")
+# read the Jack.org spreadsheet
+headers = {"Authorization": "Bearer key11VPF3xYEIsES0"}
 
-headers = {"Authorization": f"Bearer {airtable_token}"}
 response = requests.get("https://api.airtable.com/v0/appywQzwZYTT5lFQO/Table%201", headers=headers)
 
-for row in response.json()["records"]:
-	if activity == row["fields"]["activity"] and emotion == row["fields"]["mentalState"]:
-		print(row["fields"]["spotifyLink"])
+response = response.json()
+
+found = False
+link = ""
+
+for row in response["records"]:
+
+  if emotion == row["fields"]["mentalState"].lower() and activity == row["fields"]["activity"].lower():
+    print(row["fields"]["spotifyLink"])
+    webbrowser.open(row["fields"]["spotifyLink"])
+    found = True
+
+if found == False:
+  # random.shuffle(response["records"])
+  print(response["records"][0]["fields"]["spotifyLink"])
+  webbrowser.open(random.choice(response["records"])["fields"]["spotifyLink"])
